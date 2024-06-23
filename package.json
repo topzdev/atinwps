@@ -9,16 +9,27 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-accordion": "^1.2.0",
+    "@radix-ui/react-slider": "^1.2.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.396.0",
+    "next": "14.2.4",
     "react": "^18",
+    "react-avatar-editor": "^13.0.2",
     "react-dom": "^18",
-    "next": "14.2.4"
+    "react-dropzone": "^14.2.3",
+    "tailwind-merge": "^2.3.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
+    "@types/react-avatar-editor": "^13.0.2",
     "@types/react-dom": "^18",
+    "@types/react-dropzone": "^5.1.0",
     "postcss": "^8",
-    "tailwindcss": "^3.4.1"
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
   }
 }

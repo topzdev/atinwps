@@ -15,10 +15,10 @@ export const iconSizes = {
 
 export const variants = {
     primary: {
-        filled: 'border bg-primary text-primary-foreground border-primary hover:bg-primary-600 hover:border-primary-600',
-        outlined: 'border border-primary text-primary',
-        text: 'text-primary',
-        tonal: 'bg-primary-100 text-primary'
+        filled: 'border bg-primary text-primary-foreground bg-gradient-to-r from-blue-600 to-red-600',
+        outlined: 'border border-blue-500 text-blue-500',
+        text: 'text-blue-500',
+        tonal: 'bg-blue-100 text-red-500'
     },
     accent: {
         filled: 'border bg-accent text-accent-foreground border-accent hover:bg-accent-600 hover:border-accent-600',

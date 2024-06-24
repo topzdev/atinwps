@@ -17,7 +17,7 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({frame = 'atinwpsframe.png'}) =
     const editor = useRef<any>(null);
     const fileInputRef = useRef<any>(null);
     const [image, setImage] = useState<string | null>(null);
-    const canvasRef = useRef<HTMLCanvasElement>(null);
+    const canvasRef = useRef<any>(null);
     const [loading, setLoading] = useState(false);
     const [rounded, setRounded] = useState(false);
     const [zoomLevel, setZoomLevel] = useState<number>(ZOOM_LEVEL);
@@ -75,7 +75,7 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({frame = 'atinwpsframe.png'}) =
         }
     };
 
-    const handleFileInputChange = (event) => {
+    const handleFileInputChange = (event: any) => {
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
@@ -111,10 +111,10 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({frame = 'atinwpsframe.png'}) =
     return (
         <div className="flex flex-col w-full items-center mt-8">
             <div className={cn('flex relative sm:w-[400px] sm:h-[400px] lg:h-[500px] lg:w-[500px] !aspect-square border border-border bg-slate-100 mx-auto', rounded ? 'rounded-full overflow-hidden' : '')}
-                 onClick={image ? null : handleInputClick}>
+                 onClick={image ? () => {} : handleInputClick}>
                 <AvatarEditor
                     ref={editor}
-                    image={image}
+                    image={image as string}
                     color={[255, 255, 255, 0.6]}
                     rotate={0}
                     scale={zoomLevel}

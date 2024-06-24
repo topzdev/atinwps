@@ -46,7 +46,7 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({frame = 'atinwpsframe.png'}) =
         try {
             setLoading(true);
             const croppedImage: any = await getCroppedImg(
-                image,
+                image as string,
                 croppedAreaPixels,
                 rotation
             )

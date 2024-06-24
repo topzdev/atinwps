@@ -36,7 +36,7 @@ const App: React.FC = () => {
 
             <PhotoEditor/>
 
-            <Typography className={'mt-3'}>Follow us on Facebook for latest update about WPS issues</Typography>
+            <Typography className={'mt-3'}>Follow us on Facebook for the latest updates about WPS issues.</Typography>
             <FacebookPagePreview/>
             <ShareSocMed/>
             <Footer/>

@@ -15,7 +15,7 @@ export const iconSizes = {
 
 export const variants = {
     primary: {
-        filled: 'border bg-primary text-primary-foreground bg-gradient-to-r from-blue-600 to-red-600',
+        filled: 'border bg-primary text-primary-foreground bg-gradient-primary',
         outlined: 'border border-blue-500 text-blue-500',
         text: 'text-blue-500',
         tonal: 'bg-blue-100 text-red-500'

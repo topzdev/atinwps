@@ -20,7 +20,7 @@ const PAGE_URL = process.env.NEXT_PUBLIC_WEBSITE_URL|| '';
 const ShareSocMed = (props: Props) => {
     return <div className="flex flex-col">
         <div className={'flex fixed bottom-0 left-1/2 -translate-x-1/2 items-center'}>
-            <Typography className={'px-2 py-2 text-white font-bold text-start bg-gradient-to-r from-blue-600 to-red-600 h-full'} variant={'p-ui'}>
+            <Typography className={'px-2 py-2 text-white font-bold text-start bg-gradient-primary h-full'} variant={'p-ui'}>
                 Please <br/>
                 Share
             </Typography>

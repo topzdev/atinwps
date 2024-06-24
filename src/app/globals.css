@@ -383,6 +383,10 @@
 }
 
 @layer components {
+  .bg-gradient-primary {
+   @apply bg-gradient-to-r from-blue-600 to-red-600
+  }
+
   .typo-h1 {
     @apply scroll-m-20 text-3xl md:text-4xl font-extrabold tracking-tight lg:text-5xl;
   }

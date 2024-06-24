@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import PreviewFrame from "@/app/_components/PreviewFrame";
 import PhotoEditorDialog from "@/app/_components/PhotoEditorDialog";
+import { createImage } from "@/lib/cropImage";
+import Typography from "@/components/ui/typography";
 
 interface PhotoEditorProps {
   frame?: string;
@@ -29,18 +31,21 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({
 
   const handleDownload = async () => {
     setLoading(true);
-    const a = document.createElement("a");
-    a.href = finalImage;
-    a.download = "atinwps-" + Date.now() + ".png";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    setLoading(false);
-    toast({
-      title: "Photo Downloaded",
-      description:
-        "Thank you for joining this cause! #AtinAngWestPhilippineSea",
-    });
+    setTimeout(async () => {
+      const a = document.createElement("a");
+      a.href = finalImage;
+      a.download = "atinwps-" + Date.now() + ".png";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+
+      setLoading(false);
+      toast({
+        title: "Photo Downloaded",
+        description:
+          "Thank you for joining this cause! #AtinAngWestPhilippineSea",
+      });
+    }, 500);
   };
 
   const handleInputClick = (event: React.MouseEvent<any, MouseEvent>) => {
@@ -123,6 +128,9 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({
             >
               Download Photo
             </Button>
+            <Typography className="text-slate-400 text-xs mb-1" variant="small">
+              or press and hold the image above and save it to your library
+            </Typography>
             <Button
               className={"w-full"}
               size={"lg"}

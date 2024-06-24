@@ -6,6 +6,7 @@ import {Button} from "@/components/ui/button";
 import {Slider} from "@/components/ui/slider";
 import {Switch} from "@/components/ui/switch";
 import {cn} from "@/lib/utils";
+import {useToast} from "@/components/ui/use-toast";
 
 interface PhotoEditorProps {
     frame?: string;
@@ -13,7 +14,10 @@ interface PhotoEditorProps {
 }
 
 const ZOOM_LEVEL = 1;
+const MIN_ZOOM = 0.2;
+const MAX_ZOOM = 2;
 const PhotoEditor: React.FC<PhotoEditorProps> = ({frame = 'atinwpsframe.png'}) => {
+    const { toast } = useToast();
     const editor = useRef<any>(null);
     const fileInputRef = useRef<any>(null);
     const [image, setImage] = useState<string | null>(null);
@@ -21,6 +25,7 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({frame = 'atinwpsframe.png'}) =
     const [loading, setLoading] = useState(false);
     const [rounded, setRounded] = useState(false);
     const [zoomLevel, setZoomLevel] = useState<number>(ZOOM_LEVEL);
+    const lastTouchDistanceRef = useRef<number>(0);
 
     const handleDownload = async () => {
         setLoading(true);
@@ -62,6 +67,10 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({frame = 'atinwpsframe.png'}) =
                     a.click();
                     document.body.removeChild(a);
                     setLoading(false);
+                    toast({
+                        title: 'Photo Downloaded',
+                        description: 'Thank you for join to this cause! #AtinAngWestPhilippineSea'
+                    })
                 };
                 frameImage.src = frameImageUrl;
             };
@@ -90,28 +99,64 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({frame = 'atinwpsframe.png'}) =
 
     const resetChanges = () => {
         setZoomLevel(ZOOM_LEVEL);
+        setRounded(false);
     }
 
-    const handleScroll = (event: React.WheelEvent<HTMLDivElement>) => {
+    const handleScroll = (event: React.WheelEvent<any>) => {
         event.preventDefault();
+        event.stopPropagation();
         if (editor && editor.current) {
             const delta = event.deltaY;
             let newZoom = zoomLevel;
 
             if (delta > 0) {
-                newZoom = Math.max(0.2, zoomLevel - 0.1);
+                newZoom = Math.max(MIN_ZOOM, zoomLevel - 0.1);
             } else {
-                newZoom = Math.min(2.0, zoomLevel + 0.1);
+                newZoom = Math.min(MAX_ZOOM, zoomLevel + 0.1);
             }
 
             setZoomLevel(newZoom);
         }
     };
 
+    const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
+        if (event.touches.length === 2) {
+            const touch1 = event.touches[0];
+            const touch2 = event.touches[1];
+            const distance = Math.hypot(touch2.clientX - touch1.clientX, touch2.clientY - touch1.clientY);
+            lastTouchDistanceRef.current = distance;
+        }
+    };
+
+    const handleTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
+        if (event.touches.length === 2) {
+            const touch1 = event.touches[0];
+            const touch2 = event.touches[1];
+            const distance = Math.hypot(touch2.clientX - touch1.clientX, touch2.clientY - touch1.clientY);
+            const zoomChange = distance - lastTouchDistanceRef.current;
+
+            if (Math.abs(zoomChange) > 10) { // Sensitivity threshold
+                let newZoom = zoomLevel + (zoomChange / 200);
+                newZoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, newZoom));
+                setZoomLevel(newZoom);
+                lastTouchDistanceRef.current = distance;
+            }
+        }
+    };
+
+    const handleRemove = () => {
+        setImage(null)
+        resetChanges();
+    }
+
     return (
         <div className="flex flex-col w-full items-center mt-8">
             <div className={cn('flex relative sm:w-[400px] sm:h-[400px] lg:h-[500px] lg:w-[500px] !aspect-square border border-border bg-slate-100 mx-auto', rounded ? 'rounded-full overflow-hidden' : '')}
-                 onClick={image ? () => {} : handleInputClick}>
+                 onClick={image ? () => {} : handleInputClick}
+                 onWheel={handleScroll}
+                 onTouchStart={handleTouchStart}
+                 onTouchMove={handleTouchMove}
+            >
                 <AvatarEditor
                     ref={editor}
                     image={image as string}
@@ -122,6 +167,7 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({frame = 'atinwpsframe.png'}) =
                     width={500}
                     border={0}
                     className="!h-full !w-full"
+
                 />
                 <img src={frame} alt="Selected Frame"
                      className="w-full h-full absolute top-0 left-0 pointer-events-none"/>
@@ -151,7 +197,7 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({frame = 'atinwpsframe.png'}) =
 
                         <Button disabled={loading} loading={loading} size={'lg'} className={'w-full'}
                                 onClick={handleDownload}>Download Photo</Button>
-                        <Button className={'w-full'} size={'lg'} variant={'outlined'} onClick={() => setImage(null)}>Remove
+                        <Button className={'w-full'} size={'lg'} variant={'outlined'} onClick={handleRemove}>Remove
                             Photo</Button>
                     </>}
             </div>

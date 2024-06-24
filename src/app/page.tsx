@@ -25,8 +25,8 @@ export const metadata: Metadata = {
 const App: React.FC = () => {
 
     return (
-        <div className={'flex flex-col text-center items-center py-10 pb-14 max-w-[500px] mx-auto max-lg:px-4'}>
-            <Link target={'_blank'} href={'https://www.facebook.com/atinwps'}>
+        <div className={'flex flex-col text-center items-center py-5 md:py-10 pb-14 max-w-[500px] mx-auto max-lg:px-4'}>
+            <Link className={'mb-2'} target={'_blank'} href={'https://www.facebook.com/atinwps'}>
                 <Image width={100} height={100} src={'/logo.png'} alt={'AtinAngWestPhilippineSea Logo'}/>
             </Link>
             <Typography variant='h2' style={{}} className={''}>#AtinAngWestPhilippineSea</Typography>

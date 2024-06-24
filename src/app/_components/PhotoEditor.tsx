@@ -135,7 +135,7 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({frame = 'atinwpsframe.png'}) =
     }
 
     return (
-        <div className="flex flex-col w-full items-center mt-8 px-4">
+        <div className="flex flex-col w-full items-center mt-4">
             <div
                 className={cn('flex relative w-full h-auto aspect-square border border-border bg-slate-100 mx-auto', rounded ? 'rounded-full overflow-hidden' : '')}
                 onClick={image ? () => {
@@ -155,7 +155,7 @@ const PhotoEditor: React.FC<PhotoEditorProps> = ({frame = 'atinwpsframe.png'}) =
                     onZoomChange={setZoomLevel}
                     onCropComplete={onCropComplete}
                     onRotationChange={setRotation}
-                    zoomWithScroll={true}
+                    zoomWithScroll={false}
 
                 />
                 <img src={frame} alt="Selected Frame"

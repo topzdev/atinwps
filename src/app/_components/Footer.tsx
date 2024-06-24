@@ -8,7 +8,7 @@ type Props = {
 }
 
 const Footer = (props: Props) => {
-    return <Typography className={'pb-10'}>
+    return <Typography className={'pb-10 py-5'}>
         Made by <b><Link href={'https://topz.dev/'} target={'_blank'}>Christopher Lugod</Link></b>
     </Typography>
 }

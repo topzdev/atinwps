@@ -18,12 +18,11 @@ type Props = {
 
 const PAGE_URL = process.env.NEXT_PUBLIC_WEBSITE_URL|| '';
 const ShareSocMed = (props: Props) => {
-    return <div className="flex flex-col">
-        <div className={'flex fixed bottom-0 left-1/2 -translate-x-1/2 items-center'}>
-            <Typography className={'px-2 py-2 text-white font-bold text-start bg-gradient-primary h-full'} variant={'p-ui'}>
-                Please <br/>
-                Share
-            </Typography>
+    return <div className="flex flex-col text-center justify-center">
+        <Typography className={'px-2 py-2 h-full'} variant={'p-ui'}>
+            Also, please help us spread this cause through sharing on social media.
+        </Typography>
+        <div className={'flex items-center mx-auto'}>
             <FacebookShareButton url={PAGE_URL}>
                 <FacebookIcon/>
             </FacebookShareButton>
